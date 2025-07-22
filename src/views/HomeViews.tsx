@@ -81,6 +81,7 @@ function HomeViews() {
 
       <DialogShoppingCart
         walletId={user.wallet?.id || ""}
+        username={user.username || ""}
         balance={Number(user.wallet?.balance) || 0}
         cart={cart}
         cartItems={cartItems || []}

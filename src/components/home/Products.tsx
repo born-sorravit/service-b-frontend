@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { IProduct } from "@/interfaces/product.interface";
+import { formatNumber } from "@/utils/formatNumber";
 interface ProductsProps {
   products: IProduct[] | undefined;
   cart: Record<string, number>;
@@ -59,12 +60,12 @@ function Products({ products, cart, setCart }: ProductsProps) {
               <div className="text-sm">
                 Price:{" "}
                 <span className="font-semibold">
-                  {product.price} {product.priceUnit}
+                  {formatNumber(product.price)} {product.priceUnit}
                 </span>
               </div>
 
               <Badge variant={product.quantity > 0 ? "default" : "destructive"}>
-                Quantity: {product.quantity}
+                Quantity: {formatNumber(product.quantity.toString())}
               </Badge>
 
               <Button

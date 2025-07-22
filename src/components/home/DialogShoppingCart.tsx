@@ -27,6 +27,7 @@ import { CustomDialog } from "../common/CustomDialog";
 
 interface DialogShoppingCartProps {
   walletId: string;
+  username: string;
   balance: number;
   cart: Record<string, number>;
   cartItems: IProduct[];
@@ -39,6 +40,7 @@ interface DialogShoppingCartProps {
 
 function DialogShoppingCart({
   walletId,
+  username,
   balance,
   cart,
   cartItems,
@@ -99,6 +101,7 @@ function DialogShoppingCart({
         };
       });
       const response = (await TransactionServices.withdraw(walletId, {
+        username,
         toUsers: toUser,
         products: productInCart,
       })) as IResponse<IWithdrawResponse>;

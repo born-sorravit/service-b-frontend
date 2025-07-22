@@ -10,18 +10,27 @@ import { Label } from "../ui/label";
 import { Mail, User, Wallet } from "lucide-react";
 import { IUserInfo } from "@/interfaces/user.interface";
 import { formatNumber } from "@/utils/formatNumber";
+import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 interface UserInfoProps {
   user: IUserInfo;
 }
 export default function UserInfo({ user }: UserInfoProps) {
+  const router = useRouter();
+
   return (
     <Card className="shadow-md rounded-2xl border border-muted">
-      <CardHeader>
-        <CardTitle className="text-xl">User Info</CardTitle>
-        <CardDescription className="text-muted-foreground">
-          Welcome, <span className="font-medium">{user.name}</span>
-        </CardDescription>
+      <CardHeader className="flex flex-row justify-between items-center">
+        <div>
+          <CardTitle className="text-xl">User Info</CardTitle>
+          <CardDescription className="text-muted-foreground">
+            Welcome, <span className="font-medium">{user.name}</span>
+          </CardDescription>
+        </div>
+        <Button variant="outline" onClick={() => router.push(`/history`)}>
+          View History
+        </Button>
       </CardHeader>
       <CardContent className="flex gap-4">
         <div className="flex items-center gap-3">

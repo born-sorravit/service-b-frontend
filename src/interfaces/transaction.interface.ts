@@ -6,6 +6,7 @@ export interface IDeposit {
 }
 
 export interface IWithdraw {
+  username: string;
   toUsers: {
     amount: number;
     currency: ECurrency;
