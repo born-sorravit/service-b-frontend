@@ -15,10 +15,14 @@ import { Button } from "../ui/button";
 
 interface UserInfoProps {
   user: IUserInfo;
+  reset: () => void;
 }
-export default function UserInfo({ user }: UserInfoProps) {
+export default function UserInfo({ user, reset }: UserInfoProps) {
   const router = useRouter();
-
+  const handleLogout = async () => {
+    reset();
+    router.push("/");
+  };
   return (
     <Card className="shadow-md rounded-2xl border border-muted">
       <CardHeader className="flex flex-row justify-between items-center">
@@ -28,9 +32,18 @@ export default function UserInfo({ user }: UserInfoProps) {
             Welcome, <span className="font-medium">{user.name}</span>
           </CardDescription>
         </div>
-        <Button variant="outline" onClick={() => router.push(`/history`)}>
-          View History
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={() => router.push(`/history`)}>
+            View History
+          </Button>
+          <Button
+            variant="outline"
+            className="cursor-pointer bg-re"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </div>
       </CardHeader>
       <CardContent className="flex gap-4">
         <div className="flex items-center gap-3">

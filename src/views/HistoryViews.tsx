@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 import { useUserStore } from "@/stores/user/user.modal";
 import UserInfo from "@/components/home/UserInfo";
 import { IHistory } from "@/interfaces/history.interface";
@@ -11,7 +10,7 @@ import { IResponse } from "@/interfaces/response.interface";
 import { formatNumber } from "@/utils/formatNumber";
 
 function HistoryViews() {
-  const { user } = useUserStore();
+  const { user, reset } = useUserStore();
 
   const [history, setHistory] = React.useState<IHistory[]>();
 
@@ -34,7 +33,7 @@ function HistoryViews() {
   }, [user]);
   return (
     <div className="p-4 space-y-3">
-      <UserInfo user={user} />
+      <UserInfo user={user} reset={reset} />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {history?.length &&
           history.map((item) => (

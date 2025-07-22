@@ -77,7 +77,7 @@ function HomeViews() {
 
   return (
     <div className="p-6 relative min-h-screen space-y-3">
-      <UserInfo user={user} />
+      <UserInfo user={user} reset={reset} />
 
       <DialogShoppingCart
         walletId={user.wallet?.id || ""}
