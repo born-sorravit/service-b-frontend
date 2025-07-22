@@ -1,14 +1,20 @@
+import { ECurrency } from "@/enums/currency.enum";
+
 export interface IDeposit {
   amount: number;
   currency: string;
 }
 
 export interface IWithdraw {
-  amount: number;
-  currency: string;
-  toUsername: string;
-  productId: string;
-  quantity: number;
+  toUsers: {
+    amount: number;
+    currency: ECurrency;
+    username: string;
+  }[];
+  products: {
+    id: string;
+    quantity: number;
+  }[];
 }
 
 export interface IDepositResponse {
@@ -22,9 +28,14 @@ export interface IDepositResponse {
 
 export interface IWithdrawResponse {
   id: string;
-  withdrawnAmount: number;
-  withdrawnCurrency: string;
-  rateToUSD: number;
+  totalWithdrawnUSD: number;
   totalBalance: number;
   currencyBalance: string;
+  transactions: {
+    to: string;
+    amount: number;
+    currency: string;
+    amountInUSD: number;
+    rateToUSD: number;
+  };
 }

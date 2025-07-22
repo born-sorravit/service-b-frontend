@@ -47,11 +47,6 @@ function LoginViews() {
         passwordSecret,
         username
       );
-      console.log({
-        username,
-        encryptedPassword,
-        passwordSecret,
-      });
 
       const response = (await AuthServices.login(
         username,

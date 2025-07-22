@@ -27,22 +27,26 @@ import { CustomDialog } from "../common/CustomDialog";
 
 interface DialogShoppingCartProps {
   walletId: string;
+  balance: number;
   cart: Record<string, number>;
   cartItems: IProduct[];
   cartCount: number;
   currencies: ICurrency[];
   refetch: () => void;
   setIsRefetchProduct: React.Dispatch<React.SetStateAction<boolean>>;
+  onSuccessOrder?: () => void;
 }
 
 function DialogShoppingCart({
   walletId,
+  balance,
   cart,
   cartItems,
   cartCount,
   currencies,
   refetch,
   setIsRefetchProduct,
+  onSuccessOrder,
 }: DialogShoppingCartProps) {
   const [currency, setCurrency] = useState<string>();
   const [open, setOpen] = React.useState(false);
@@ -68,29 +72,55 @@ function DialogShoppingCart({
   const convertedUSD = (totalAmount * Number(rate)).toFixed(2);
   const handleSubmitOrder = async () => {
     try {
+      // Check balance
+      if (Number(convertedUSD) > balance) {
+        setOpen(true);
+        setTitleDialog("Submit Order Failed ❌");
+        setDescriptionDialog(
+          `Insufficient balance. Please add more funds to your wallet.`
+        );
+        return;
+      }
+
+      const productInCart = cartItems.map((item) => {
+        return {
+          id: item.id,
+          quantity: cart[item.id],
+          price: Number(item.price),
+          currency: item.priceUnit,
+        };
+      });
+
+      const toUser = cartItems.map((item) => {
+        return {
+          amount: Number(item.price) * cart[item.id],
+          currency: item.priceUnit as ECurrency,
+          username: item.createdByUsername as string,
+        };
+      });
       const response = (await TransactionServices.withdraw(walletId, {
-        amount: Number(totalAmount.toFixed(2)),
-        currency: ECurrency.USD,
-        toUsername: cartItems[0].createdByUsername as string,
-        productId: cartItems[0].id,
-        quantity: cart[cartItems[0].id],
+        toUsers: toUser,
+        products: productInCart,
       })) as IResponse<IWithdrawResponse>;
 
       setOpen(true);
       if (response.data) {
         refetch();
         setIsRefetchProduct(true);
-        setTitleDialog("Withdraw Success ✅");
+        setTitleDialog("Submit Order Success ✅");
         setDescriptionDialog(
-          `Withdraw successfully. amount : ${formatNumber(
-            response.data.withdrawnAmount.toString()
+          `Submit Order successfully. amount : ${formatNumber(
+            response.data.totalWithdrawnUSD.toString()
           )} USD, to : ${cartItems[0].createdByUsername} `
         );
+        onSuccessOrder?.();
+        setCurrency("");
       }
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <>
       <Dialog>
