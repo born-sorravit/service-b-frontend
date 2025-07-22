@@ -37,7 +37,7 @@ function HistoryViews() {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {history?.length &&
           history.map((item) => (
-            <Card key={item.productId} className="shadow-md rounded-2xl">
+            <Card key={item.id} className="shadow-md rounded-2xl">
               <CardHeader>
                 <CardTitle className="text-lg">{item.productName}</CardTitle>
               </CardHeader>
@@ -74,6 +74,10 @@ function HistoryViews() {
                   <p>
                     <span className="font-medium text-primary">Seller:</span>{" "}
                     {item.seller}
+                  </p>
+                  <p>
+                    <span className="font-medium text-primary">Date:</span>{" "}
+                    {item.createdAt}
                   </p>
                 </div>
               </CardContent>

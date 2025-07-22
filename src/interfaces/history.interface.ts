@@ -1,4 +1,5 @@
 export interface IHistory {
+  id: string;
   productId: string;
   productName: string;
   quantity: number;
@@ -7,4 +8,5 @@ export interface IHistory {
   image: string;
   buyer: string;
   seller: string;
+  createdAt: string;
 }
