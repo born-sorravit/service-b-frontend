@@ -114,7 +114,9 @@ function DialogShoppingCart({
         setDescriptionDialog(
           `Submit Order successfully. amount : ${formatNumber(
             response.data.totalWithdrawnUSD.toString()
-          )} USD, to : ${cartItems[0].createdByUsername} `
+          )} USD, to ${cartItems
+            .map((item) => item.createdByUsername)
+            .join(", ")} `
         );
         onSuccessOrder?.();
         setCurrency("");
