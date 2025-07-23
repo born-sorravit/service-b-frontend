@@ -1,15 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+
 import { useUserStore } from "@/stores/user/user.modal";
 import UserInfo from "@/components/home/UserInfo";
 import DialogShoppingCart from "@/components/home/DialogShoppingCart";

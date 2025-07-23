@@ -118,6 +118,9 @@ function DialogShoppingCart({
         );
         onSuccessOrder?.();
         setCurrency("");
+      } else {
+        setTitleDialog("Submit Order Failed ❌");
+        setDescriptionDialog(`Something went wrong. Please try again.`);
       }
     } catch (error) {
       console.log(error);
