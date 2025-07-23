@@ -10,7 +10,7 @@ import { Label } from "../ui/label";
 import { Mail, User, Wallet } from "lucide-react";
 import { IUserInfo } from "@/interfaces/user.interface";
 import { formatNumber } from "@/utils/formatNumber";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 
 interface UserInfoProps {
@@ -19,6 +19,7 @@ interface UserInfoProps {
 }
 export default function UserInfo({ user, reset }: UserInfoProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const handleLogout = async () => {
     reset();
     router.push("/");
@@ -33,8 +34,13 @@ export default function UserInfo({ user, reset }: UserInfoProps) {
           </CardDescription>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => router.push(`/history`)}>
-            View History
+          <Button
+            variant="outline"
+            onClick={() =>
+              router.push(pathname === "/history" ? "/home" : "/history")
+            }
+          >
+            {pathname === "/history" ? "All Product" : "View Histor"}
           </Button>
           <Button
             variant="outline"
