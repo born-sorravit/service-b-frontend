@@ -35,7 +35,7 @@ function HistoryViews() {
     <div className="p-4 space-y-3">
       <UserInfo user={user} reset={reset} />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {history?.length &&
+        {history?.length ? (
           history.map((item) => (
             <Card key={item.id} className="shadow-md rounded-2xl">
               <CardHeader>
@@ -82,7 +82,10 @@ function HistoryViews() {
                 </div>
               </CardContent>
             </Card>
-          ))}
+          ))
+        ) : (
+          <div className="flex justify-center col-span-2"> - No history - </div>
+        )}
       </div>
     </div>
   );
