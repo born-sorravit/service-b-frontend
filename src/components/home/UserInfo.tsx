@@ -40,7 +40,7 @@ export default function UserInfo({ user, reset }: UserInfoProps) {
               router.push(pathname === "/history" ? "/home" : "/history")
             }
           >
-            {pathname === "/history" ? "All Product" : "View Histor"}
+            {pathname === "/history" ? "All Product" : "View History"}
           </Button>
           <Button
             variant="outline"
